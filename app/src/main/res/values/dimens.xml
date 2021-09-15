@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="sizeBtn">24sp</dimen>
-    <dimen name="margin">16dp</dimen>
+    <dimen name="text_size_dimension">40sp</dimen>
+    <dimen name="keyboard_bottom_margin_dimension">10dp</dimen>
+    <dimen name="button_size_dimension">20sp</dimen>
+    <dimen name="keyboard_padding_dimension">10dp</dimen>
+    <dimen name="sizeEditTxt">35sp</dimen>
+    <dimen name="edit_text_size_dimension">24sp</dimen>
+    <dimen name="text_margin_dimension">30dp</dimen>
 </resources>
