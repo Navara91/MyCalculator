@@ -59,10 +59,11 @@
             android:layout_marginBottom="@dimen/keyboard_bottom_margin_dimension"
             android:layout_weight="3">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/clear_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/clear_string"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/digit_seven_button"
@@ -72,11 +73,12 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_seven_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="@string/digit_seven_string"
+                android:backgroundTint="@color/blue"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/digit_four_button"
                 app:layout_constraintEnd_toStartOf="@id/digit_eight_button"
@@ -85,11 +87,12 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_eight_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="@string/digit_eight_string"
+                android:backgroundTint="@color/blue"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/digit_five_button"
                 app:layout_constraintEnd_toStartOf="@id/digit_nine_button"
@@ -98,10 +101,11 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_nine_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/digit_nine_string"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/digit_six_button"
@@ -109,11 +113,12 @@
                 app:layout_constraintStart_toEndOf="@id/digit_eight_button"
                 app:layout_constraintTop_toBottomOf="@id/clear_button" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_four_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="@string/digit_four_string"
+                android:backgroundTint="@color/blue"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/digit_one_button"
                 app:layout_constraintEnd_toStartOf="@id/digit_five_button"
@@ -122,11 +127,12 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_five_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="@string/digit_five_string"
+                android:backgroundTint="@color/blue"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/digit_two_button"
                 app:layout_constraintEnd_toStartOf="@id/digit_six_button"
@@ -135,21 +141,23 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_six_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="@string/digit_six_string"
                 android:textSize="@dimen/button_size_dimension"
+                android:backgroundTint="@color/blue"
                 app:layout_constraintBottom_toTopOf="@id/digit_three_button"
                 app:layout_constraintEnd_toStartOf="@id/minus_button"
                 app:layout_constraintStart_toEndOf="@id/digit_five_button"
                 app:layout_constraintTop_toBottomOf="@id/digit_nine_button" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_one_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/digit_one_string"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/dot_button"
@@ -159,9 +167,10 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_two_button"
                 android:layout_width="wrap_content"
+                android:backgroundTint="@color/blue"
                 android:layout_height="0dp"
                 android:text="@string/digit_two_string"
                 android:textSize="@dimen/button_size_dimension"
@@ -172,9 +181,10 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_three_button"
                 android:layout_width="wrap_content"
+                android:backgroundTint="@color/blue"
                 android:layout_height="0dp"
                 android:text="@string/digit_three_string"
                 android:textSize="@dimen/button_size_dimension"
@@ -183,9 +193,10 @@
                 app:layout_constraintStart_toEndOf="@id/digit_two_button"
                 app:layout_constraintTop_toBottomOf="@id/digit_six_button" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/dot_button"
                 android:layout_width="wrap_content"
+                android:backgroundTint="@color/blue"
                 android:layout_height="0dp"
                 android:text="@string/dot_string"
                 android:textSize="@dimen/button_size_dimension"
@@ -196,11 +207,12 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/digit_zero_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="@string/digit_zero_string"
+                android:backgroundTint="@color/blue"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/plus_button"
@@ -209,10 +221,11 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/plus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/plus_string"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -220,10 +233,11 @@
                 app:layout_constraintStart_toEndOf="@id/digit_zero_button"
                 app:layout_constraintTop_toBottomOf="@id/digit_three_button" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/division_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/division_string"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/multi_button"
@@ -231,10 +245,11 @@
                 app:layout_constraintStart_toEndOf="@id/digit_nine_button"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/multi_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/multi_string"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/minus_button"
@@ -242,21 +257,23 @@
                 app:layout_constraintStart_toEndOf="@id/digit_nine_button"
                 app:layout_constraintTop_toBottomOf="@id/division_button" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/minus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="@string/minus_string"
+                android:backgroundTint="@color/blue"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toTopOf="@id/equal_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/digit_six_button"
                 app:layout_constraintTop_toBottomOf="@id/multi_button" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/equal_button"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/equal_string"
                 android:textSize="@dimen/button_size_dimension"
                 app:layout_constraintBottom_toBottomOf="parent"

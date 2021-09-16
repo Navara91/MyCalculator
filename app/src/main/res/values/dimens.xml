@@ -2,7 +2,7 @@
 <resources>
     <dimen name="text_size_dimension">40sp</dimen>
     <dimen name="keyboard_bottom_margin_dimension">10dp</dimen>
-    <dimen name="button_size_dimension">20sp</dimen>
+    <dimen name="button_size_dimension">24sp</dimen>
     <dimen name="keyboard_padding_dimension">10dp</dimen>
     <dimen name="sizeEditTxt">35sp</dimen>
     <dimen name="edit_text_size_dimension">24sp</dimen>
