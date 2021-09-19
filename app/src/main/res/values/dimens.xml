@@ -7,4 +7,6 @@
     <dimen name="sizeEditTxt">35sp</dimen>
     <dimen name="edit_text_size_dimension">24sp</dimen>
     <dimen name="text_margin_dimension">30dp</dimen>
+    <dimen name="padding_keyboard">10dp</dimen>
+    <dimen name="button_margin">10dp</dimen>
 </resources>
