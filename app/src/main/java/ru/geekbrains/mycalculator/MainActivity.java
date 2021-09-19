@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private double valueTwo = 0.0;
     private boolean isFirstValue = true;
     private boolean isFirstAction = true;
+    private String action = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,10 +138,85 @@ public class MainActivity extends AppCompatActivity {
         clearBtn.setOnClickListener(v -> {
                     resultTv.setText("0");
                     isFirstValue = true;
+                    isFirstAction = true;
                 }
         );
 
+        plusBtn.setOnClickListener(v -> {
+            if (isFirstAction) {
+                valueOne = Double.parseDouble(resultTv.getText().toString());
+                isFirstValue = true;
+                action = "+";
+                resultTv.setText(String.valueOf(valueOne) + "+");
+                isFirstAction = false;
+            }
+        });
 
+        minusBtn.setOnClickListener(v -> {
+            if (isFirstAction) {
+                valueOne = Double.parseDouble(resultTv.getText().toString());
+                isFirstValue = true;
+                action = "-";
+                resultTv.setText(String.valueOf(valueOne) + "-");
+                isFirstAction = false;
+            }
+        });
+
+        multiBtn.setOnClickListener(v -> {
+            if (isFirstAction) {
+                valueOne = Double.parseDouble(resultTv.getText().toString());
+                isFirstValue = true;
+                action = "*";
+                resultTv.setText(String.valueOf(valueOne) + "*");
+                isFirstAction = false;
+            }
+        });
+
+        divBtn.setOnClickListener(v -> {
+            if (isFirstAction) {
+                valueOne = Double.parseDouble(resultTv.getText().toString());
+                isFirstValue = true;
+                action = "/";
+                resultTv.setText(String.valueOf(valueOne) + "/");
+                isFirstAction = false;
+            }
+        });
+
+        equalBtn.setOnClickListener(v -> {
+            valueTwo = Double.parseDouble(resultTv.getText().toString());
+            if (action=="+"){
+                double valueResult = valueOne + valueTwo;
+                resultTv.setText(String.valueOf(valueResult));
+                valueOne = valueResult;
+                isFirstValue = true;
+                isFirstAction = true;
+                action = "";
+            }
+            if (action=="-"){
+                double valueResult = valueOne - valueTwo;
+                resultTv.setText(String.valueOf(valueResult));
+                valueOne = valueResult;
+                isFirstValue = true;
+                isFirstAction = true;
+                action = "";
+            }
+            if (action=="*"){
+                double valueResult = valueOne * valueTwo;
+                resultTv.setText(String.valueOf(valueResult));
+                valueOne = valueResult;
+                isFirstValue = true;
+                isFirstAction = true;
+                action = "";
+            }
+            if (action=="/"){
+                double valueResult = valueOne / valueTwo;
+                resultTv.setText(String.valueOf(valueResult));
+                valueOne = valueResult;
+                isFirstValue = true;
+                isFirstAction = true;
+                action = "";
+            }
+        });
     }
 
 
