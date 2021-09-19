@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView currentDataTv;
+    private static final String COUNTER_KEY = "COUNTER_KEY";
+
     private TextView resultTv;
     private Button equalBtn, clearBtn, divBtn, multiBtn, minusBtn, plusBtn, zeroBtn, oneBtn, twoBtn, threeBtn, fourBtn, fiveBtn, sixBtn, sevenBtn, eightBtn, nineBtn, dotBtn;
 
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        currentDataTv = findViewById(R.id.current_data_Tv);
         resultTv = findViewById(R.id.result_Tv);
         clearBtn = findViewById(R.id.clear_button);
         equalBtn = findViewById(R.id.equal_button);
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
         equalBtn.setOnClickListener(v -> {
             valueTwo = Double.parseDouble(resultTv.getText().toString());
-            if (action=="+"){
+            if (action == "+") {
                 double valueResult = valueOne + valueTwo;
                 resultTv.setText(String.valueOf(valueResult));
                 valueOne = valueResult;
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 isFirstAction = true;
                 action = "";
             }
-            if (action=="-"){
+            if (action == "-") {
                 double valueResult = valueOne - valueTwo;
                 resultTv.setText(String.valueOf(valueResult));
                 valueOne = valueResult;
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 isFirstAction = true;
                 action = "";
             }
-            if (action=="*"){
+            if (action == "*") {
                 double valueResult = valueOne * valueTwo;
                 resultTv.setText(String.valueOf(valueResult));
                 valueOne = valueResult;
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                 isFirstAction = true;
                 action = "";
             }
-            if (action=="/"){
+            if (action == "/") {
                 double valueResult = valueOne / valueTwo;
                 resultTv.setText(String.valueOf(valueResult));
                 valueOne = valueResult;
@@ -218,6 +218,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
