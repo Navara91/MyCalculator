@@ -1,11 +1,14 @@
 package ru.geekbrains.mycalculator;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-class Calculator {
+class Calculator implements Parcelable {
 
-    private TextView resultTv;
+    TextView resultTv;
     private Button equalBtn, clearBtn, divBtn, multiBtn, minusBtn, plusBtn, zeroBtn, oneBtn, twoBtn, threeBtn, fourBtn, fiveBtn, sixBtn, sevenBtn, eightBtn, nineBtn, dotBtn;
 
     private double valueOne = 0.0;
@@ -26,6 +29,44 @@ class Calculator {
         // Подключение слушателей событий к кнопкам
         initClickListeners();
     }
+
+    void showResult(Button digit){
+        if (isFirstValue) {
+            resultTv.setText(digit.getText().toString());
+            isFirstValue = false;
+        } else
+            resultTv.setText(String.format("%s%s", resultTv.getText().toString(), digit.getText().toString()));
+    }
+
+    private void setAction(Button button){
+        if (isFirstAction) {
+            valueOne = Double.parseDouble(resultTv.getText().toString());
+            isFirstValue = true;
+            action = button.getText().toString();
+            resultTv.setText(String.valueOf(valueOne) + button.getText().toString());
+            isFirstAction = false;
+        }
+    }
+
+    protected Calculator(Parcel in) {
+        valueOne = in.readDouble();
+        valueTwo = in.readDouble();
+        isFirstValue = in.readByte() != 0;
+        isFirstAction = in.readByte() != 0;
+        action = in.readString();
+    }
+
+    public static final Creator<Calculator> CREATOR = new Creator<Calculator>() {
+        @Override
+        public Calculator createFromParcel(Parcel in) {
+            return new Calculator(in);
+        }
+
+        @Override
+        public Calculator[] newArray(int size) {
+            return new Calculator[size];
+        }
+    };
 
     private void initView() {
         resultTv = mainActivity.findViewById(R.id.result_tv);
@@ -52,132 +93,28 @@ class Calculator {
 
     private void initClickListeners() {
 
-        oneBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(oneBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), oneBtn.getText().toString()));
-                }
-        );
-        twoBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(twoBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), twoBtn.getText().toString()));
-                }
-        );
-        threeBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(threeBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), threeBtn.getText().toString()));
-                }
-        );
-        fourBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(fourBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), fourBtn.getText().toString()));
-                }
-        );
-        fiveBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(fiveBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), fiveBtn.getText().toString()));
-                }
-        );
-        sixBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(sixBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), sixBtn.getText().toString()));
-                }
-        );
-        sevenBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(sevenBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), sevenBtn.getText().toString()));
-                }
-        );
-        eightBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(eightBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), eightBtn.getText().toString()));
-                }
-        );
-        nineBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(nineBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), nineBtn.getText().toString()));
-                }
-        );
-        zeroBtn.setOnClickListener(v -> {
-                    if (isFirstValue) {
-                        resultTv.setText(zeroBtn.getText().toString());
-                        isFirstValue = false;
-                    } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), zeroBtn.getText().toString()));
-                }
-        );
+        oneBtn.setOnClickListener(v -> showResult(oneBtn));
+        twoBtn.setOnClickListener(v -> showResult(twoBtn));
+        threeBtn.setOnClickListener(v -> showResult(threeBtn));
+        fourBtn.setOnClickListener(v -> showResult(fourBtn));
+        fiveBtn.setOnClickListener(v -> showResult(fiveBtn));
+        sixBtn.setOnClickListener(v -> showResult(sixBtn));
+        sevenBtn.setOnClickListener(v -> showResult(sevenBtn));
+        eightBtn.setOnClickListener(v -> showResult(eightBtn));
+        nineBtn.setOnClickListener(v -> showResult(nineBtn));
+        zeroBtn.setOnClickListener(v -> showResult(zeroBtn));
+
+        plusBtn.setOnClickListener(v -> setAction(plusBtn));
+        minusBtn.setOnClickListener(v -> setAction(minusBtn));
+        multiBtn.setOnClickListener(v -> setAction(multiBtn));
+        divBtn.setOnClickListener(v -> setAction(divBtn));
+
         clearBtn.setOnClickListener(v -> {
                     resultTv.setText(zeroBtn.getText().toString());
                     isFirstValue = true;
                     isFirstAction = true;
                 }
         );
-
-        plusBtn.setOnClickListener(v -> {
-            if (isFirstAction) {
-                valueOne = Double.parseDouble(resultTv.getText().toString());
-                isFirstValue = true;
-                action = plusBtn.getText().toString();
-                resultTv.setText(String.valueOf(valueOne) + plusBtn.getText().toString());
-                isFirstAction = false;
-            }
-        });
-
-        minusBtn.setOnClickListener(v -> {
-            if (isFirstAction) {
-                valueOne = Double.parseDouble(resultTv.getText().toString());
-                isFirstValue = true;
-                action = minusBtn.getText().toString();
-                resultTv.setText(String.valueOf(valueOne) + minusBtn.getText().toString());
-                isFirstAction = false;
-            }
-        });
-
-        multiBtn.setOnClickListener(v -> {
-            if (isFirstAction) {
-                valueOne = Double.parseDouble(resultTv.getText().toString());
-                isFirstValue = true;
-                action = multiBtn.getText().toString();
-                resultTv.setText(String.valueOf(valueOne) + multiBtn.getText().toString());
-                isFirstAction = false;
-            }
-        });
-
-        divBtn.setOnClickListener(v -> {
-            if (isFirstAction) {
-                valueOne = Double.parseDouble(resultTv.getText().toString());
-                isFirstValue = true;
-                action = divBtn.getText().toString();
-                resultTv.setText(String.valueOf(valueOne) + divBtn.getText().toString());
-                isFirstAction = false;
-            }
-        });
 
         equalBtn.setOnClickListener(v -> {
             valueTwo = Double.parseDouble(resultTv.getText().toString());
@@ -214,5 +151,19 @@ class Calculator {
                 action = "";
             }
         });
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(valueOne);
+        dest.writeDouble(valueTwo);
+        dest.writeByte((byte) (isFirstValue ? 1 : 0));
+        dest.writeByte((byte) (isFirstAction ? 1 : 0));
+        dest.writeString(action);
     }
 }
