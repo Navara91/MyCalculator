@@ -22,13 +22,13 @@ class Calculator {
         // Инициализация переменных
         initView();
         // Установка начального значения поля с результатом
-        resultTv.setText("0");
+        resultTv.setText(zeroBtn.getText().toString());
         // Подключение слушателей событий к кнопкам
         ButtonClick();
     }
 
     private void initView() {
-        resultTv = mainActivity.findViewById(R.id.result_Tv);
+        resultTv = mainActivity.findViewById(R.id.result_tv);
         clearBtn = mainActivity.findViewById(R.id.clear_button);
         equalBtn = mainActivity.findViewById(R.id.equal_button);
 
@@ -54,86 +54,86 @@ class Calculator {
 
         oneBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("1");
+                        resultTv.setText(oneBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "1"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), oneBtn.getText().toString()));
                 }
         );
         twoBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("2");
+                        resultTv.setText(twoBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "2"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), twoBtn.getText().toString()));
                 }
         );
         threeBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("3");
+                        resultTv.setText(threeBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "3"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), threeBtn.getText().toString()));
                 }
         );
         fourBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("4");
+                        resultTv.setText(fourBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "4"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), fourBtn.getText().toString()));
                 }
         );
         fiveBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("5");
+                        resultTv.setText(fiveBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "5"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), fiveBtn.getText().toString()));
                 }
         );
         sixBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("6");
+                        resultTv.setText(sixBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "6"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), sixBtn.getText().toString()));
                 }
         );
         sevenBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("7");
+                        resultTv.setText(sevenBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "7"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), sevenBtn.getText().toString()));
                 }
         );
         eightBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("8");
+                        resultTv.setText(eightBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "8"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), eightBtn.getText().toString()));
                 }
         );
         nineBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("9");
+                        resultTv.setText(nineBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "9"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), nineBtn.getText().toString()));
                 }
         );
         zeroBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
-                        resultTv.setText("0");
+                        resultTv.setText(zeroBtn.getText().toString());
                         isFirstValue = false;
                     } else
-                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), "0"));
+                        resultTv.setText(String.format("%s%s", resultTv.getText().toString(), zeroBtn.getText().toString()));
                 }
         );
         clearBtn.setOnClickListener(v -> {
-                    resultTv.setText("0");
+                    resultTv.setText(zeroBtn.getText().toString());
                     isFirstValue = true;
                     isFirstAction = true;
                 }
@@ -143,8 +143,8 @@ class Calculator {
             if (isFirstAction) {
                 valueOne = Double.parseDouble(resultTv.getText().toString());
                 isFirstValue = true;
-                action = "+";
-                resultTv.setText(String.valueOf(valueOne) + "+");
+                action = plusBtn.getText().toString();
+                resultTv.setText(String.valueOf(valueOne) + plusBtn.getText().toString());
                 isFirstAction = false;
             }
         });
@@ -153,8 +153,8 @@ class Calculator {
             if (isFirstAction) {
                 valueOne = Double.parseDouble(resultTv.getText().toString());
                 isFirstValue = true;
-                action = "-";
-                resultTv.setText(String.valueOf(valueOne) + "-");
+                action = minusBtn.getText().toString();
+                resultTv.setText(String.valueOf(valueOne) + minusBtn.getText().toString());
                 isFirstAction = false;
             }
         });
@@ -163,8 +163,8 @@ class Calculator {
             if (isFirstAction) {
                 valueOne = Double.parseDouble(resultTv.getText().toString());
                 isFirstValue = true;
-                action = "*";
-                resultTv.setText(String.valueOf(valueOne) + "*");
+                action = multiBtn.getText().toString();
+                resultTv.setText(String.valueOf(valueOne) + multiBtn.getText().toString());
                 isFirstAction = false;
             }
         });
@@ -173,15 +173,15 @@ class Calculator {
             if (isFirstAction) {
                 valueOne = Double.parseDouble(resultTv.getText().toString());
                 isFirstValue = true;
-                action = "/";
-                resultTv.setText(String.valueOf(valueOne) + "/");
+                action = divBtn.getText().toString();
+                resultTv.setText(String.valueOf(valueOne) + divBtn.getText().toString());
                 isFirstAction = false;
             }
         });
 
         equalBtn.setOnClickListener(v -> {
             valueTwo = Double.parseDouble(resultTv.getText().toString());
-            if (action == "+") {
+            if (action == plusBtn.getText().toString()) {
                 double valueResult = valueOne + valueTwo;
                 resultTv.setText(String.valueOf(valueResult));
                 valueOne = valueResult;
@@ -189,7 +189,7 @@ class Calculator {
                 isFirstAction = true;
                 action = "";
             }
-            if (action == "-") {
+            if (action == minusBtn.getText().toString()) {
                 double valueResult = valueOne - valueTwo;
                 resultTv.setText(String.valueOf(valueResult));
                 valueOne = valueResult;
@@ -197,7 +197,7 @@ class Calculator {
                 isFirstAction = true;
                 action = "";
             }
-            if (action == "*") {
+            if (action == multiBtn.getText().toString()) {
                 double valueResult = valueOne * valueTwo;
                 resultTv.setText(String.valueOf(valueResult));
                 valueOne = valueResult;
@@ -205,7 +205,7 @@ class Calculator {
                 isFirstAction = true;
                 action = "";
             }
-            if (action == "/") {
+            if (action == divBtn.getText().toString()) {
                 double valueResult = valueOne / valueTwo;
                 resultTv.setText(String.valueOf(valueResult));
                 valueOne = valueResult;
