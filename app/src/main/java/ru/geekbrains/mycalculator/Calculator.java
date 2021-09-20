@@ -24,7 +24,7 @@ class Calculator {
         // Установка начального значения поля с результатом
         resultTv.setText(zeroBtn.getText().toString());
         // Подключение слушателей событий к кнопкам
-        ButtonClick();
+        initClickListeners();
     }
 
     private void initView() {
@@ -50,7 +50,7 @@ class Calculator {
         divBtn = mainActivity.findViewById(R.id.division_button);
     }
 
-    private void ButtonClick() {
+    private void initClickListeners() {
 
         oneBtn.setOnClickListener(v -> {
                     if (isFirstValue) {
