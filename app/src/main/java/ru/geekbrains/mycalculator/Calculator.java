@@ -8,7 +8,23 @@ import android.widget.TextView;
 class Calculator implements Parcelable {
 
     TextView resultTv;
-    private Button equalBtn, clearBtn, divBtn, multiBtn, minusBtn, plusBtn, zeroBtn, oneBtn, twoBtn, threeBtn, fourBtn, fiveBtn, sixBtn, sevenBtn, eightBtn, nineBtn, dotBtn;
+    private Button equalBtn;
+    private Button clearBtn;
+    private Button divBtn;
+    private Button multiBtn;
+    private Button minusBtn;
+    private Button plusBtn;
+    private Button zeroBtn;
+    private Button oneBtn;
+    private Button twoBtn;
+    private Button threeBtn;
+    private Button fourBtn;
+    private Button fiveBtn;
+    private Button sixBtn;
+    private Button sevenBtn;
+    private Button eightBtn;
+    private Button nineBtn;
+    private Button dotBtn;
 
     private double valueOne = 0.0;
     private double valueTwo = 0.0;
