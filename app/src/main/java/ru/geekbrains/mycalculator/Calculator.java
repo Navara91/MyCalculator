@@ -2,13 +2,8 @@ package ru.geekbrains.mycalculator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 class Calculator implements Parcelable {
 
@@ -21,15 +16,11 @@ class Calculator implements Parcelable {
     private boolean isFirstAction = true;
     private String action = null;
 
-    private double finalResult = 0.0;
-
-    // Proba
-    private LinkedList<String> proba = new LinkedList<>();
-
-
     private MainActivity mainActivity;
 
-    // Конструктор класса Logic запускается один раз при его инициализации
+    private double finalResult = 0.0;
+
+    // Конструктор класса Calculator запускается один раз при его инициализации
     public Calculator(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         // Инициализация переменных
@@ -38,24 +29,17 @@ class Calculator implements Parcelable {
         resultTv.setText(zeroBtn.getText().toString());
         // Подключение слушателей событий к кнопкам
         initClickListeners();
-
-        // Proba
-        proba.add("1");
-        proba.add("2");
     }
 
-    void showResult(Button digit){
+    void showResult(Button digit) {
         if (isFirstValue) {
             resultTv.setText(digit.getText().toString());
             isFirstValue = false;
         } else
             resultTv.setText(String.format("%s%s", resultTv.getText().toString(), digit.getText().toString()));
     }
-    void showResult(TextView showText){
-        showText.setText(String.valueOf(finalResult));
-    }
 
-    private void setAction(Button button){
+    private void setAction(Button button) {
         if (isFirstAction) {
             valueOne = Double.parseDouble(resultTv.getText().toString());
             isFirstValue = true;
@@ -71,10 +55,7 @@ class Calculator implements Parcelable {
         isFirstValue = in.readByte() != 0;
         isFirstAction = in.readByte() != 0;
         action = in.readString();
-
-        // Proba
-//        List<String> proba_list = new ArrayList<String>();
-//        proba_list = in.readList();
+        finalResult = in.readDouble();
     }
 
     public static final Creator<Calculator> CREATOR = new Creator<Calculator>() {
@@ -88,6 +69,17 @@ class Calculator implements Parcelable {
             return new Calculator[size];
         }
     };
+
+    // Этот метод нужен для новой инициализации элементов при пересоздании активити
+    public void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+        // Инициализация переменных
+        initView();
+        // Установка начального значения поля с результатом
+        resultTv.setText(String.valueOf(finalResult));
+        // Подключение слушателей событий к кнопкам
+        initClickListeners();
+    }
 
     private void initView() {
         resultTv = mainActivity.findViewById(R.id.result_tv);
@@ -190,11 +182,7 @@ class Calculator implements Parcelable {
         dest.writeByte((byte) (isFirstValue ? 1 : 0));
         dest.writeByte((byte) (isFirstAction ? 1 : 0));
         dest.writeString(action);
-        // Здесь можно написать любую обёртку для любого типа данных
-/*        int a = 5;
-        boolean b = true;
+        dest.writeDouble(finalResult);
 
-        List<String> proba_list = proba;
-        dest.writeList(proba_list);*/
     }
 }

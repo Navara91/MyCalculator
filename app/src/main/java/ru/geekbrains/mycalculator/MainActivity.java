@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,23 +16,20 @@ public class MainActivity extends AppCompatActivity {
     // потому что здесь ещё MainActivity не создана
     private Calculator calculator;
 
-    TextView resultTv;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Инициализация класса logic и передача в него ссылки на класс MainActivity,
+        // Инициализация класса Calculator и передача в него ссылки на класс MainActivity,
         // чтобы можно было в нём пользоваться элементами макета "activity_main"
         // В этом методе MainActivity создана, поэтому в качестве this будет передан MainActivity,
         // а не null
         if (savedInstanceState == null) {
             calculator = new Calculator(this);
         } else {
-            resultTv = findViewById(R.id.result_tv);
             calculator = savedInstanceState.getParcelable(COUNTER_KEY);
-            calculator.showResult(resultTv);
+            calculator.setMainActivity((MainActivity) this);
         }
     }
 
@@ -40,10 +38,4 @@ public class MainActivity extends AppCompatActivity {
         outState.putParcelable(COUNTER_KEY, calculator);
         super.onSaveInstanceState(outState);
     }
-
-/*    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        calculator = savedInstanceState.getParcelable(COUNTER_KEY);
-        super.onRestoreInstanceState(savedInstanceState);
-    }*/
 }
