@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     // потому что здесь ещё MainActivity не создана
     private Calculator calculator;
 
+    TextView resultTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,19 +26,24 @@ public class MainActivity extends AppCompatActivity {
         // чтобы можно было в нём пользоваться элементами макета "activity_main"
         // В этом методе MainActivity создана, поэтому в качестве this будет передан MainActivity,
         // а не null
-        calculator = new Calculator(this);
+        if (savedInstanceState == null) {
+            calculator = new Calculator(this);
+        } else {
+            resultTv = findViewById(R.id.result_tv);
+            calculator = savedInstanceState.getParcelable(COUNTER_KEY);
+            calculator.showResult(resultTv);
+        }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putParcelable(COUNTER_KEY, calculator);
+        super.onSaveInstanceState(outState);
     }
 
-    @Override
+/*    @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
         calculator = savedInstanceState.getParcelable(COUNTER_KEY);
-        calculator.showResult();
-    }
+        super.onRestoreInstanceState(savedInstanceState);
+    }*/
 }
