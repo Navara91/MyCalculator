@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Constants{
 
     private TextView resultTv;
     private Button clearBtn;
@@ -50,10 +50,9 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             calculator = new Calculator();
             // Установка начального значения поля с результатом
-//        resultTv.setText(zeroBtn.getText().toString());
+            resultTv.setText(String.valueOf(zeroBtn));
         } else {
             calculator = savedInstanceState.getParcelable(COUNTER_KEY);
-
         }
     }
 
@@ -88,21 +87,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void initClickListeners() {
 
-        oneBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(1))));
-        twoBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(2))));
-        threeBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(3))));
-        fourBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(4))));
-        fiveBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(5))));
-        sixBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(6))));
-        sevenBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(7))));
-        eightBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(8))));
-        nineBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(9))));
-        zeroBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.addDigit(0))));
+        oneBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(1)));
+        twoBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(2)));
+        threeBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(3)));
+        fourBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(4)));
+        fiveBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(5)));
+        sixBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(6)));
+        sevenBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(7)));
+        eightBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(8)));
+        nineBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(9)));
+        zeroBtn.setOnClickListener(v -> resultTv.setText(calculator.addDigit(0)));
 
-        plusBtn.setOnClickListener(v -> resultTv.setText((String.valueOf(calculator.operation("+"))) + " +"));
-        minusBtn.setOnClickListener(v -> resultTv.setText((String.valueOf(calculator.operation("-"))) + " -"));
-        multiBtn.setOnClickListener(v -> resultTv.setText((String.valueOf(calculator.operation("*"))) + " *"));
-        divBtn.setOnClickListener(v -> resultTv.setText((String.valueOf(calculator.operation("/"))) + " /"));
-        equalBtn.setOnClickListener(v -> resultTv.setText((String.valueOf(calculator.showResult("=")))));
+        plusBtn.setOnClickListener(v -> resultTv.setText(calculator.operation(ACTIONS.ACTION_PLUS)));
+        minusBtn.setOnClickListener(v -> resultTv.setText(calculator.operation(ACTIONS.ACTION_MINUS)));
+        multiBtn.setOnClickListener(v -> resultTv.setText(calculator.operation(ACTIONS.ACTION_MULTI)));
+        divBtn.setOnClickListener(v -> resultTv.setText(calculator.operation(ACTIONS.ACTION_DIVISION)));
+        equalBtn.setOnClickListener(v -> calculator.operation(ACTIONS.ACTION_EQUAL));
     }
 }
