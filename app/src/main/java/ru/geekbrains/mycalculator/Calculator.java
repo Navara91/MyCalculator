@@ -15,6 +15,10 @@ class Calculator implements Parcelable, Constants {
     private String equal = null;
     private double finalResult = 0.0;
 
+    Calculator(){
+
+    }
+
     protected Calculator(Parcel in) {
         firstValue = in.readDouble();
         secondValue = in.readDouble();
@@ -73,6 +77,8 @@ class Calculator implements Parcelable, Constants {
                 return String.format("%s *", String.valueOf(firstValue));
             case ACTION_DIVISION:
                 return String.format("%s /", String.valueOf(firstValue));
+            default:
+                return "";
         }
     }
 
@@ -86,7 +92,10 @@ class Calculator implements Parcelable, Constants {
                 return equal = String.format("%s * %s", argumentOne, argumentTwo);
             case ACTION_DIVISION:
                 return equal = String.format("%s / %s", argumentOne, argumentTwo);
+            default:
+                return "";
         }
+
     }
 
     @Override
