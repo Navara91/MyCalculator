@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements Constants{
         if (savedInstanceState == null) {
             calculator = new Calculator();
             // Установка начального значения поля с результатом
-            resultTv.setText(String.valueOf(zeroBtn));
+            resultTv.setText(zeroBtn.getText());
         } else {
             calculator = savedInstanceState.getParcelable(COUNTER_KEY);
         }
@@ -102,6 +102,6 @@ public class MainActivity extends AppCompatActivity implements Constants{
         minusBtn.setOnClickListener(v -> resultTv.setText(calculator.operation(ACTIONS.ACTION_MINUS)));
         multiBtn.setOnClickListener(v -> resultTv.setText(calculator.operation(ACTIONS.ACTION_MULTI)));
         divBtn.setOnClickListener(v -> resultTv.setText(calculator.operation(ACTIONS.ACTION_DIVISION)));
-        equalBtn.setOnClickListener(v -> calculator.operation(ACTIONS.ACTION_EQUAL));
+        equalBtn.setOnClickListener(v -> resultTv.setText(String.valueOf(calculator.showResult())));
     }
 }

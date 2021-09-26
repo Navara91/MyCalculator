@@ -12,9 +12,10 @@ class Calculator implements Parcelable, Constants {
     private boolean isFirstAction = true;
     private ACTIONS actions = null;
     private ACTIONS currentAction = null;
-    private String equal = null;
+    private String equal = "";
     private double finalResult = 0.0;
 
+    //пустой конструктор для вызова класса в майнАктивити
     Calculator(){
 
     }
@@ -57,7 +58,7 @@ class Calculator implements Parcelable, Constants {
                 secondValue = newDigit;
             } else
                 secondValue = secondValue * 10 + newDigit;
-            return showResult(firstValue, secondValue, currentAction);
+            return fullExpression(firstValue, secondValue, currentAction);
         }
 
     }
@@ -65,7 +66,7 @@ class Calculator implements Parcelable, Constants {
     // метод для передачи арифметического действия
     String operation(ACTIONS actions) {
 
-        isFirstValue = false;
+        isFirstValue = true;
         currentAction = actions;
 
         switch (actions) {
@@ -82,20 +83,39 @@ class Calculator implements Parcelable, Constants {
         }
     }
 
-    String showResult(double argumentOne, double argumentTwo, ACTIONS action) {
+    String fullExpression(double argumentOne, double argumentTwo, ACTIONS action) {
         switch (action) {
             case ACTION_PLUS:
-                return equal = String.format("%s + %s", argumentOne, argumentTwo);
+                return String.format("%s + %s", argumentOne, argumentTwo);
             case ACTION_MINUS:
-                return equal = String.format("%s - %s", argumentOne, argumentTwo);
+                return String.format("%s - %s", argumentOne, argumentTwo);
             case ACTION_MULTI:
-                return equal = String.format("%s * %s", argumentOne, argumentTwo);
+                return String.format("%s * %s", argumentOne, argumentTwo);
             case ACTION_DIVISION:
-                return equal = String.format("%s / %s", argumentOne, argumentTwo);
+                return String.format("%s / %s", argumentOne, argumentTwo);
             default:
                 return "";
         }
+    }
 
+    double showResult(){
+        isFirstValue = true;
+        switch (currentAction){
+            case ACTION_PLUS:
+                currentAction = null;
+                return firstValue = firstValue + secondValue;
+            case ACTION_MINUS:
+                currentAction = null;
+                return firstValue = firstValue - secondValue;
+            case ACTION_MULTI:
+                currentAction = null;
+                return firstValue = firstValue * secondValue;
+            case ACTION_DIVISION:
+                currentAction = null;
+                return firstValue = firstValue / secondValue;
+            default:
+                return 0;
+        }
     }
 
     @Override
