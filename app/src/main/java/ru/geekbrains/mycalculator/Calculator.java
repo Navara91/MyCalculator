@@ -1,7 +1,9 @@
 package ru.geekbrains.mycalculator;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 class Calculator implements Parcelable, Constants {
 
@@ -12,12 +14,15 @@ class Calculator implements Parcelable, Constants {
     private boolean isFirstAction = true;
     private ACTIONS actions = null;
     private ACTIONS currentAction = null;
-    private String equal = "";
-    private double finalResult = 0.0;
+    private String finalResult = "0";
 
     //пустой конструктор для вызова класса в майнАктивити
     Calculator(){
 
+    }
+
+    public String getFinalResult() {
+        return finalResult;
     }
 
     protected Calculator(Parcel in) {
@@ -26,8 +31,6 @@ class Calculator implements Parcelable, Constants {
         currentNumber = in.readDouble();
         isFirstValue = in.readByte() != 0;
         isFirstAction = in.readByte() != 0;
-        equal = in.readString();
-        finalResult = in.readDouble();
     }
 
     public static final Creator<Calculator> CREATOR = new Creator<Calculator>() {
@@ -51,7 +54,7 @@ class Calculator implements Parcelable, Constants {
                 firstValue = newDigit;
             } else
                 firstValue = firstValue * 10 + newDigit;
-            return String.valueOf(firstValue);
+            return finalResult = String.valueOf(firstValue);
         } else {
             if (isFirstValue) {
                 isFirstValue = false;
@@ -63,6 +66,7 @@ class Calculator implements Parcelable, Constants {
 
     }
 
+
     // метод для передачи арифметического действия
     String operation(ACTIONS actions) {
 
@@ -71,52 +75,75 @@ class Calculator implements Parcelable, Constants {
 
         switch (actions) {
             case ACTION_PLUS:
-                return String.format("%s +", String.valueOf(firstValue));
+                return finalResult = String.format("%s +", String.valueOf(firstValue));
             case ACTION_MINUS:
-                return String.format("%s -", String.valueOf(firstValue));
+                return finalResult = String.format("%s -", String.valueOf(firstValue));
             case ACTION_MULTI:
-                return String.format("%s *", String.valueOf(firstValue));
+                return finalResult = String.format("%s *", String.valueOf(firstValue));
             case ACTION_DIVISION:
-                return String.format("%s /", String.valueOf(firstValue));
+                return finalResult = String.format("%s /", String.valueOf(firstValue));
             default:
                 return "";
         }
     }
 
+    // метод возвращающий текущее выражение
     String fullExpression(double argumentOne, double argumentTwo, ACTIONS action) {
         switch (action) {
             case ACTION_PLUS:
-                return String.format("%s + %s", argumentOne, argumentTwo);
+                return finalResult = String.format("%s + %s", argumentOne, argumentTwo);
             case ACTION_MINUS:
-                return String.format("%s - %s", argumentOne, argumentTwo);
+                return finalResult = String.format("%s - %s", argumentOne, argumentTwo);
             case ACTION_MULTI:
-                return String.format("%s * %s", argumentOne, argumentTwo);
+                return finalResult = String.format("%s * %s", argumentOne, argumentTwo);
             case ACTION_DIVISION:
-                return String.format("%s / %s", argumentOne, argumentTwo);
+                return finalResult = String.format("%s / %s", argumentOne, argumentTwo);
             default:
                 return "";
         }
     }
 
-    double showResult(){
+    // метод возвращающий решение выражения
+    String showResult(){
         isFirstValue = true;
-        switch (currentAction){
-            case ACTION_PLUS:
-                currentAction = null;
-                return firstValue = firstValue + secondValue;
-            case ACTION_MINUS:
-                currentAction = null;
-                return firstValue = firstValue - secondValue;
-            case ACTION_MULTI:
-                currentAction = null;
-                return firstValue = firstValue * secondValue;
-            case ACTION_DIVISION:
-                currentAction = null;
-                return firstValue = firstValue / secondValue;
-            default:
-                return 0;
-        }
+        if (currentAction != null){
+            if (secondValue != 0){
+                switch (currentAction){
+                    case ACTION_PLUS:
+                        currentAction = null;
+                        firstValue = firstValue + secondValue;
+                        secondValue = 0;
+                        return finalResult = String.valueOf(firstValue);
+                    case ACTION_MINUS:
+                        currentAction = null;
+                        firstValue = firstValue - secondValue;
+                        secondValue = 0;
+                        return finalResult = String.valueOf(firstValue);
+                    case ACTION_MULTI:
+                        currentAction = null;
+                        firstValue = firstValue * secondValue;
+                        secondValue = 0;
+                        return finalResult = String.valueOf(firstValue);
+                    case ACTION_DIVISION:
+                        currentAction = null;
+                        firstValue = firstValue / secondValue;
+                        secondValue = 0;
+                        return finalResult = String.valueOf(firstValue);
+                    default:
+                        return "";
+                }
+            }
+            else return finalResult;
+        } else return finalResult;
     }
+
+    String clearDisplay(){
+        isFirstValue = true;
+        isFirstAction = true;
+        currentAction = null;
+        return finalResult = "0";
+    }
+
 
     @Override
     public int describeContents() {
@@ -130,7 +157,5 @@ class Calculator implements Parcelable, Constants {
         dest.writeDouble(currentNumber);
         dest.writeByte((byte) (isFirstValue ? 1 : 0));
         dest.writeByte((byte) (isFirstAction ? 1 : 0));
-        dest.writeString(equal);
-        dest.writeDouble(finalResult);
     }
 }
