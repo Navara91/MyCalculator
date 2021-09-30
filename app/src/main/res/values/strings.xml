@@ -17,4 +17,5 @@
     <string name="digit_eight_string">8</string>
     <string name="digit_seven_string">7</string>
     <string name="clear_string">C</string>
+    <string name="name_button_setting">Setting</string>
 </resources>
