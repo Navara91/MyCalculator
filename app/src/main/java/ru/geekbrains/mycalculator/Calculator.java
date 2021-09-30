@@ -1,77 +1,36 @@
 package ru.geekbrains.mycalculator;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
-class Calculator implements Parcelable {
+class Calculator implements Parcelable, Constants {
 
-    TextView resultTv;
-    private Button equalBtn;
-    private Button clearBtn;
-    private Button divBtn;
-    private Button multiBtn;
-    private Button minusBtn;
-    private Button plusBtn;
-    private Button zeroBtn;
-    private Button oneBtn;
-    private Button twoBtn;
-    private Button threeBtn;
-    private Button fourBtn;
-    private Button fiveBtn;
-    private Button sixBtn;
-    private Button sevenBtn;
-    private Button eightBtn;
-    private Button nineBtn;
-    private Button dotBtn;
-
-    private double valueOne = 0.0;
-    private double valueTwo = 0.0;
+    private double firstValue;
+    private double secondValue;
+    private double currentNumber = 0.0;
     private boolean isFirstValue = true;
     private boolean isFirstAction = true;
-    private String action = null;
+    private ACTIONS actions = null;
+    private ACTIONS currentAction = null;
+    private String finalResult = "0";
 
-    private MainActivity mainActivity;
+    //пустой конструктор для вызова класса в майнАктивити
+    Calculator(){
 
-    private double finalResult = 0.0;
-
-    // Конструктор класса Calculator запускается один раз при его инициализации
-    public Calculator(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-        // Инициализация переменных
-        initView();
-        // Установка начального значения поля с результатом
-        resultTv.setText(zeroBtn.getText().toString());
-        // Подключение слушателей событий к кнопкам
-        initClickListeners();
     }
 
-    void showResult(Button digit) {
-        if (isFirstValue) {
-            resultTv.setText(digit.getText().toString());
-            isFirstValue = false;
-        } else
-            resultTv.setText(String.format("%s%s", resultTv.getText().toString(), digit.getText().toString()));
-    }
-
-    private void setAction(Button button) {
-        if (isFirstAction) {
-            valueOne = Double.parseDouble(resultTv.getText().toString());
-            isFirstValue = true;
-            action = button.getText().toString();
-            resultTv.setText(String.valueOf(valueOne) + button.getText().toString());
-            isFirstAction = false;
-        }
+    public String getFinalResult() {
+        return finalResult;
     }
 
     protected Calculator(Parcel in) {
-        valueOne = in.readDouble();
-        valueTwo = in.readDouble();
+        firstValue = in.readDouble();
+        secondValue = in.readDouble();
+        currentNumber = in.readDouble();
         isFirstValue = in.readByte() != 0;
         isFirstAction = in.readByte() != 0;
-        action = in.readString();
-        finalResult = in.readDouble();
     }
 
     public static final Creator<Calculator> CREATOR = new Creator<Calculator>() {
@@ -86,105 +45,105 @@ class Calculator implements Parcelable {
         }
     };
 
-    // Этот метод нужен для новой инициализации элементов при пересоздании активити
-    public void setMainActivity(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-        // Инициализация переменных
-        initView();
-        // Установка начального значения поля с результатом
-        resultTv.setText(String.valueOf(finalResult));
-        // Подключение слушателей событий к кнопкам
-        initClickListeners();
+    // метод получения числовых аргументов для арифметических действий
+    String addDigit(int newDigit) {
+
+        if (currentAction == null) {
+            if (isFirstValue) {
+                isFirstValue = false;
+                firstValue = newDigit;
+            } else
+                firstValue = firstValue * 10 + newDigit;
+            return finalResult = String.valueOf(firstValue);
+        } else {
+            if (isFirstValue) {
+                isFirstValue = false;
+                secondValue = newDigit;
+            } else
+                secondValue = secondValue * 10 + newDigit;
+            return fullExpression(firstValue, secondValue, currentAction);
+        }
+
     }
 
-    private void initView() {
-        resultTv = mainActivity.findViewById(R.id.result_tv);
-        clearBtn = mainActivity.findViewById(R.id.clear_button);
-        equalBtn = mainActivity.findViewById(R.id.equal_button);
 
-        oneBtn = mainActivity.findViewById(R.id.digit_one_button);
-        twoBtn = mainActivity.findViewById(R.id.digit_two_button);
-        threeBtn = mainActivity.findViewById(R.id.digit_three_button);
-        fourBtn = mainActivity.findViewById(R.id.digit_four_button);
-        fiveBtn = mainActivity.findViewById(R.id.digit_five_button);
-        sixBtn = mainActivity.findViewById(R.id.digit_six_button);
-        sevenBtn = mainActivity.findViewById(R.id.digit_seven_button);
-        eightBtn = mainActivity.findViewById(R.id.digit_eight_button);
-        nineBtn = mainActivity.findViewById(R.id.digit_nine_button);
-        zeroBtn = mainActivity.findViewById(R.id.digit_zero_button);
+    // метод для передачи арифметического действия
+    String operation(ACTIONS actions) {
 
-        dotBtn = mainActivity.findViewById(R.id.dot_button);
-        plusBtn = mainActivity.findViewById(R.id.plus_button);
-        minusBtn = mainActivity.findViewById(R.id.minus_button);
-        multiBtn = mainActivity.findViewById(R.id.multi_button);
-        divBtn = mainActivity.findViewById(R.id.division_button);
+        isFirstValue = true;
+        currentAction = actions;
+
+        switch (actions) {
+            case ACTION_PLUS:
+                return finalResult = String.format("%s +", String.valueOf(firstValue));
+            case ACTION_MINUS:
+                return finalResult = String.format("%s -", String.valueOf(firstValue));
+            case ACTION_MULTI:
+                return finalResult = String.format("%s *", String.valueOf(firstValue));
+            case ACTION_DIVISION:
+                return finalResult = String.format("%s /", String.valueOf(firstValue));
+            default:
+                return "";
+        }
     }
 
-    private void initClickListeners() {
+    // метод возвращающий текущее выражение
+    String fullExpression(double argumentOne, double argumentTwo, ACTIONS action) {
+        switch (action) {
+            case ACTION_PLUS:
+                return finalResult = String.format("%s + %s", argumentOne, argumentTwo);
+            case ACTION_MINUS:
+                return finalResult = String.format("%s - %s", argumentOne, argumentTwo);
+            case ACTION_MULTI:
+                return finalResult = String.format("%s * %s", argumentOne, argumentTwo);
+            case ACTION_DIVISION:
+                return finalResult = String.format("%s / %s", argumentOne, argumentTwo);
+            default:
+                return "";
+        }
+    }
 
-        oneBtn.setOnClickListener(v -> showResult(oneBtn));
-        twoBtn.setOnClickListener(v -> showResult(twoBtn));
-        threeBtn.setOnClickListener(v -> showResult(threeBtn));
-        fourBtn.setOnClickListener(v -> showResult(fourBtn));
-        fiveBtn.setOnClickListener(v -> showResult(fiveBtn));
-        sixBtn.setOnClickListener(v -> showResult(sixBtn));
-        sevenBtn.setOnClickListener(v -> showResult(sevenBtn));
-        eightBtn.setOnClickListener(v -> showResult(eightBtn));
-        nineBtn.setOnClickListener(v -> showResult(nineBtn));
-        zeroBtn.setOnClickListener(v -> showResult(zeroBtn));
-
-        plusBtn.setOnClickListener(v -> setAction(plusBtn));
-        minusBtn.setOnClickListener(v -> setAction(minusBtn));
-        multiBtn.setOnClickListener(v -> setAction(multiBtn));
-        divBtn.setOnClickListener(v -> setAction(divBtn));
-
-        clearBtn.setOnClickListener(v -> {
-                    resultTv.setText(zeroBtn.getText().toString());
-                    isFirstValue = true;
-                    isFirstAction = true;
+    // метод возвращающий решение выражения
+    String showResult(){
+        isFirstValue = true;
+        if (currentAction != null){
+            if (secondValue != 0){
+                switch (currentAction){
+                    case ACTION_PLUS:
+                        currentAction = null;
+                        firstValue = firstValue + secondValue;
+                        secondValue = 0;
+                        return finalResult = String.valueOf(firstValue);
+                    case ACTION_MINUS:
+                        currentAction = null;
+                        firstValue = firstValue - secondValue;
+                        secondValue = 0;
+                        return finalResult = String.valueOf(firstValue);
+                    case ACTION_MULTI:
+                        currentAction = null;
+                        firstValue = firstValue * secondValue;
+                        secondValue = 0;
+                        return finalResult = String.valueOf(firstValue);
+                    case ACTION_DIVISION:
+                        currentAction = null;
+                        firstValue = firstValue / secondValue;
+                        secondValue = 0;
+                        return finalResult = String.valueOf(firstValue);
+                    default:
+                        return "";
                 }
-        );
-
-        equalBtn.setOnClickListener(v -> {
-            valueTwo = Double.parseDouble(resultTv.getText().toString());
-            if (action == plusBtn.getText().toString()) {
-                double valueResult = valueOne + valueTwo;
-                resultTv.setText(String.valueOf(valueResult));
-                valueOne = valueResult;
-                isFirstValue = true;
-                isFirstAction = true;
-                action = "";
-                finalResult = valueResult;
             }
-            if (action == minusBtn.getText().toString()) {
-                double valueResult = valueOne - valueTwo;
-                resultTv.setText(String.valueOf(valueResult));
-                valueOne = valueResult;
-                isFirstValue = true;
-                isFirstAction = true;
-                action = "";
-                finalResult = valueResult;
-            }
-            if (action == multiBtn.getText().toString()) {
-                double valueResult = valueOne * valueTwo;
-                resultTv.setText(String.valueOf(valueResult));
-                valueOne = valueResult;
-                isFirstValue = true;
-                isFirstAction = true;
-                action = "";
-                finalResult = valueResult;
-            }
-            if (action == divBtn.getText().toString()) {
-                double valueResult = valueOne / valueTwo;
-                resultTv.setText(String.valueOf(valueResult));
-                valueOne = valueResult;
-                isFirstValue = true;
-                isFirstAction = true;
-                action = "";
-                finalResult = valueResult;
-            }
-        });
+            else return finalResult;
+        } else return finalResult;
     }
+
+    String clearDisplay(){
+        isFirstValue = true;
+        isFirstAction = true;
+        currentAction = null;
+        return finalResult = "0";
+    }
+
 
     @Override
     public int describeContents() {
@@ -193,12 +152,10 @@ class Calculator implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeDouble(valueOne);
-        dest.writeDouble(valueTwo);
+        dest.writeDouble(firstValue);
+        dest.writeDouble(secondValue);
+        dest.writeDouble(currentNumber);
         dest.writeByte((byte) (isFirstValue ? 1 : 0));
         dest.writeByte((byte) (isFirstAction ? 1 : 0));
-        dest.writeString(action);
-        dest.writeDouble(finalResult);
-
     }
 }
