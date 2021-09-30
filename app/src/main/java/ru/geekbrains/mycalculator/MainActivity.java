@@ -1,5 +1,6 @@
 package ru.geekbrains.mycalculator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements Constants{
     private TextView resultTv;
     private Button clearBtn;
     private Button equalBtn;
+    private Button settingBtn;
 
     private Button oneBtn;
     private Button twoBtn;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements Constants{
         resultTv = findViewById(R.id.result_tv);
         clearBtn = findViewById(R.id.clear_button);
         equalBtn = findViewById(R.id.equal_button);
+        settingBtn = findViewById(R.id.setting_button);
 
         oneBtn = findViewById(R.id.digit_one_button);
         twoBtn = findViewById(R.id.digit_two_button);
@@ -105,5 +108,9 @@ public class MainActivity extends AppCompatActivity implements Constants{
         divBtn.setOnClickListener(v -> resultTv.setText(calculator.operation(ACTIONS.ACTION_DIVISION)));
         equalBtn.setOnClickListener(v -> resultTv.setText(calculator.showResult()));
         clearBtn.setOnClickListener(v -> resultTv.setText(calculator.clearDisplay()));
+        settingBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+        });
     }
 }
