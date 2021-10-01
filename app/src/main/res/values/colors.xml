@@ -10,5 +10,7 @@
     <color name="gray700">#3B3B3B</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray200">#BBBBBB</color>
-    <color name="blue">#99CCFF</color>
+    <color name="blue100">#99CCFF</color>
+    <color name="pink300">#FF6699</color>
+    <color name="blue700">#33CCFF</color>
 </resources>

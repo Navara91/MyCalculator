@@ -18,4 +18,6 @@
     <string name="digit_seven_string">7</string>
     <string name="clear_string">C</string>
     <string name="name_button_setting">Setting</string>
+    <string name="light_theme">Light theme</string>
+    <string name="dark_theme">Dark theme</string>
 </resources>
