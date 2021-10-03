@@ -16,12 +16,9 @@ public class SettingActivity extends AppCompatActivity {
     private static final String NameSharedPreference = "CHANGE_THEME";
     private static final String AppTheme = "APP_THEME";
 
-
-    private Constants.THEMES currentTheme;
     protected static final int CODE_OF_LIGHT_THEME = 0;
     protected static final int CODE_OF_DARK_THEME = 1;
 
-    private SwitchMaterial switchForTheme;
     SharedPreferences sharedPref;
 
     @Override
