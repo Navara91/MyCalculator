@@ -7,6 +7,7 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatToggleButton;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -19,6 +20,7 @@ public class SettingActivity extends AppCompatActivity {
     protected static final int CODE_OF_LIGHT_THEME = 0;
     protected static final int CODE_OF_DARK_THEME = 1;
 
+    private SwitchMaterial switchForTheme;
     SharedPreferences sharedPref;
 
     @Override
@@ -31,16 +33,33 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initThemeChooser(){
-        initSwitch(findViewById(R.id.switch_change_theme), CODE_OF_LIGHT_THEME);
-        initSwitch(findViewById(R.id.switch_change_theme), CODE_OF_DARK_THEME);
+//        initSwitch(findViewById(R.id.switch_change_theme), CODE_OF_LIGHT_THEME);
+//        initSwitch(findViewById(R.id.switch_change_theme), CODE_OF_DARK_THEME);
+        switchForTheme = findViewById(R.id.switch_change_theme);
+        switchForTheme.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked){
+//                            Toast.makeText(SettingActivity.this, "Dark Theme On", Toast.LENGTH_SHORT).show();
+                            setAppTheme(CODE_OF_DARK_THEME);
+                            recreate();
+                        } else {
+//                            Toast.makeText(SettingActivity.this, "Dark Theme Off", Toast.LENGTH_SHORT).show();
+                            setAppTheme(CODE_OF_LIGHT_THEME);
+                            recreate();
+                        }
+                    }
+                }
+        );
     }
 
-    private void initSwitch(View switchView, final int codeStyle){
-        switchView.setOnClickListener(v -> {
-            setAppTheme(codeStyle);
-            recreate();
-        });
-    }
+//    private void initSwitch(View switchView, final int codeStyle){
+//        switchView.setOnClickListener(v -> {
+//            setAppTheme(codeStyle);
+//            recreate();
+//        });
+//    }
 
     private int getAppTheme(int codeStyle){
         return codeStyleToStyleId(getCodeStyle(codeStyle));
