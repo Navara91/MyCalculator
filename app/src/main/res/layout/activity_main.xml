@@ -27,7 +27,7 @@
                 android:id="@+id/setting_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name_button_setting"
+                android:text="@string/button_setting_string"
                 android:layout_marginEnd="@dimen/button_margin"
                 android:layout_gravity="end"/>
             <Space

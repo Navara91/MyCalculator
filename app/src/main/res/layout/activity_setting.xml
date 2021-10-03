@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".SettingActivity">
 
-    <Switch
-        android:id="@+id/switchChangeTheme"
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_change_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/button_margin"
         android:textSize="@dimen/button_size_dimension"
-        android:text="Dark theme"
+        android:text="@string/dark_theme_string"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

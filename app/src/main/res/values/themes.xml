@@ -12,8 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="trackTint">@color/gray200</item>
     </style>
-    <style name="LightTheme" parent="AppTheme">
+    <style name="AppTheme.LightTheme">
         <item name="colorPrimary">@color/blue100</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/pink300</item>
     </style>
