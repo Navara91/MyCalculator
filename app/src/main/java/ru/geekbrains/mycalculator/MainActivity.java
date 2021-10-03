@@ -1,6 +1,7 @@
 package ru.geekbrains.mycalculator;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
@@ -40,9 +41,18 @@ public class MainActivity extends AppCompatActivity implements Constants{
     // потому что здесь ещё MainActivity не создана
     private Calculator calculator;
 
+    private static final String NameSharedPreference = "CHANGE_THEME";
+    private static final String AppTheme = "APP_THEME";
+
+    protected static final int CODE_OF_LIGHT_THEME = 0;
+    protected static final int CODE_OF_DARK_THEME = 1;
+
+    SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(getAppTheme(R.style.AppTheme));
         setContentView(R.layout.activity_main);
 
         // Инициализация переменных
@@ -112,5 +122,25 @@ public class MainActivity extends AppCompatActivity implements Constants{
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
         });
+    }
+
+    private int getAppTheme(int codeStyle){
+        return codeStyleToStyleId(getCodeStyle(codeStyle));
+    }
+
+    private int getCodeStyle(int codeStyle){
+        sharedPref = getSharedPreferences(NameSharedPreference, MODE_PRIVATE);
+        return sharedPref.getInt(AppTheme, codeStyle);
+    }
+
+    private int codeStyleToStyleId(int codeStyle){
+        switch (codeStyle){
+            case CODE_OF_LIGHT_THEME:
+                return R.style.AppTheme_LightTheme;
+            case CODE_OF_DARK_THEME:
+                return R.style.AppTheme_DarkTheme;
+            default:
+                return R.style.AppTheme;
+        }
     }
 }

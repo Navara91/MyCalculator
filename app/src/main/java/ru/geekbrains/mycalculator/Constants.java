@@ -9,6 +9,9 @@ public interface Constants {
         ACTION_DIVISION,
         ACTION_EQUAL
     };
-
-
+    // темы
+    enum THEMES {
+        THEME_LIGHT,
+        THEME_DARK
+    };
 }

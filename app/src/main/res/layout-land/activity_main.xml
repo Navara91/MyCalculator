@@ -50,7 +50,7 @@
                 android:id="@+id/setting_button"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="@string/name_button_setting"
+                android:text="@string/button_setting_string"
                 android:layout_marginStart="@dimen/button_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/clear_button"
